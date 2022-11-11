@@ -16,15 +16,24 @@ const Country = () => {
   }, []);
 
   return (
-    showCountry && (
-      <>
-        <h1>Country</h1>
-        <h4>Name : {country.name.common}</h4>
-        <img src={country.flags.png} alt="flag" />
-        <hr/>
-        
-      </>
-    )
+    <>
+      {showCountry && (
+        <>
+          <h1>Country</h1>
+          <h4>Name : {country.name.common}</h4>
+          <img src={country.flags.png} alt="flag" />
+          <hr />
+          <p>
+            Offical Name : <b>{country.name.official}</b>
+            <br />
+            Capital : <b>{country.capital[0]}</b>
+            <br />
+            Continent : <b>{country.continents[0]}</b>
+          </p>
+        </>
+      )}
+      {!showCountry && <p>... Loading</p>}
+    </>
   );
 };
 
