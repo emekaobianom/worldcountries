@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const App = () => {
+const Home = () => {
   //keep countries ;
   const [countries, setCountries] = useState([]);
 
@@ -23,11 +24,13 @@ const App = () => {
       {/* per page */}
       <hr />
       {/* List of Countries */}
+      <ol>
       {countries.map((country) => (
-        <li key={country.name.common}>{country.name.common}</li>
+        <li key={country.name.common}> <Link to={country.cca2.toLowerCase()}>{country.name.common}</Link></li>
       ))}
+      </ol>
     </>
   );
 };
 
-export default App;
+export default Home;
