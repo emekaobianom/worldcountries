@@ -83,6 +83,8 @@ const initialState = [
   },
 ];
 
+export const countries = (state) => state.countries;
+
 export const countriesSlice = createSlice({
   name: "countries",
   initialState,
@@ -111,6 +113,17 @@ export const countriesSlice = createSlice({
     //   state.value += action.payload;
     // },
   },
+});
+
+// The function below is called a thunk and allows us to perform async logic. It
+// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
+// will call the thunk with the `dispatch` function as the first argument. Async
+// code can then be executed and other actions can be dispatched. Thunks are
+// typically used to make async requests.
+export const initialiseAsync = createAsyncThunk("countries/fetchCount", async (amount) => {
+  const response = await fetchCount(amount);
+  // The value we return becomes the `fulfilled` action payload
+  return response.data;
 });
 
 // Action creators are generated for each case reducer function
