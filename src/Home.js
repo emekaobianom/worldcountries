@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"; //redux 1a
-// import { updateCountries } from "./countriesSlice"; //redux 1b
+import { addCountries, addCountriesAsync } from "./countriesSlice"; //redux 1b
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -18,9 +18,9 @@ const Home = () => {
   //     console.log(response);
   //   })
   //   .catch((err) => console.error(err));
-  useEffect(() => {
-    // dispatch(updateCountries());
-  }, []);
+  // useEffect(() => {
+    
+  // }, []);
 
   return (
     <>

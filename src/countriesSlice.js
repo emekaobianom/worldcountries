@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = [
   {
@@ -83,50 +83,46 @@ const initialState = [
   },
 ];
 
-export const countries = (state) => state.countries;
+export const addCountriesAsync = createAsyncThunk("countries/fetchCountries", async () => {
+  // await fetch("https://restcountries.com/v3.1/all?fields=name,cca2")
+  //   .then((response) => response.json())
+  //   .then((response) => {
+  //     // let sortedCountries = response.sort((a) => a.name);
+  //     // console.log(response);
+  //    return response;
+  //   })
+  //   .catch((err) => console.error(err));
+
+
+  const response = await fetch("https://restcountries.com/v3.1/all?fields=name,cca2");
+  const countries = await response.json();
+  return countries;
+
+});
 
 export const countriesSlice = createSlice({
   name: "countries",
   initialState,
-  // async () => {
-  //   await fetch("https://restcountries.com/v3.1/all?fields=name,cca2")
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       // let sortedCountries = response.sort((a) => a.name);
-  //       console.log(response);
-  //       return response;
-  //     })
-  //     .catch((err) => console.error(err));
-  // }
   reducers: {
-    // increment: (state) => {
-    //   // Redux Toolkit allows us to write "mutating" logic in reducers. It
-    //   // doesn't actually mutate the state because it uses the Immer library,
-    //   // which detects changes to a "draft state" and produces a brand new
-    //   // immutable state based off those changes
-    //   state.value += 1;
-    // },
-    // decrement: (state) => {
-    //   state.value -= 1;
-    // },
-    // incrementByAmount: (state, action) => {
-    //   state.value += action.payload;
-    // },
+    addCountries: (state,action) => {
+      state = action;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(addCountriesAsync.pending, (state) => {
+        // state.status = 'loading';
+      })
+      .addCase(addCountriesAsync.fulfilled, (state, action) => {
+        // state.status = 'idle';
+        //  console.log(action.payload)
+        return action.payload; // using 'return' means clear and reinitiate a new state object
+      });
   },
 });
 
-// The function below is called a thunk and allows us to perform async logic. It
-// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
-// will call the thunk with the `dispatch` function as the first argument. Async
-// code can then be executed and other actions can be dispatched. Thunks are
-// typically used to make async requests.
-// export const initialiseAsync = createAsyncThunk("countries/fetchCount", async (amount) => {
-//   const response = await fetchCount(amount);
-//   // The value we return becomes the `fulfilled` action payload
-//   return response.data;
-// });
 
 // Action creators are generated for each case reducer function
-// export const { increment, decrement, incrementByAmount } = countriesSlice.actions;
+export const { addCountries } = countriesSlice.actions;
 
 export default countriesSlice.reducer;
