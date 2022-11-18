@@ -1,31 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { orderAlphabeticallyByName } from "./helper";
 
 const initialState = [];
 
 export const addCountriesAsync = createAsyncThunk("countries/fetchCountries", async () => {
-  // await fetch("https://restcountries.com/v3.1/all?fields=name,cca2")
-  //   .then((response) => response.json())
-  //   .then((response) => {
-  //     // let sortedCountries = response.sort((a) => a.name);
-  //     // console.log(response);
-  //    return response;
-  //   })
-  //   .catch((err) => console.error(err));
-
-
   const response = await fetch("https://restcountries.com/v3.1/all?fields=name,cca2");
   const countries = await response.json();
-  return countries;
-
+  return countries.sort(orderAlphabeticallyByName);
 });
 
 export const countriesSlice = createSlice({
   name: "countries",
   initialState,
   reducers: {
-    addCountries: (state,action) => {
-      state = action;
-    },
+    // addCountries: (state, action) => {
+    //   state = action;
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -39,7 +29,6 @@ export const countriesSlice = createSlice({
       });
   },
 });
-
 
 // Action creators are generated for each case reducer function
 export const { addCountries } = countriesSlice.actions;

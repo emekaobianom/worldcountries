@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import countriesReducer, {addCountriesAsync } from "./countriesSlice";
+import countriesReducer, { addCountriesAsync } from "./countriesSlice";
 
 const store = configureStore({
   reducer: {

@@ -9,19 +9,6 @@ const Home = () => {
   const dispatch = useDispatch();
   // const [countries, setCountries] = useState([]);
 
-  // //get countries on load
-  // fetch("https://restcountries.com/v3.1/all?fields=name,cca2")
-  //   .then((response) => response.json())
-  //   .then((response) => {
-  //     // let sortedCountries = response.sort((a) => a.name);
-  //     setCountries(response);
-  //     console.log(response);
-  //   })
-  //   .catch((err) => console.error(err));
-  // useEffect(() => {
-    
-  // }, []);
-
   return (
     <>
       <h1>World Countries</h1>

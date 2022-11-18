@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const Country = () => {
   const { code } = useParams();
@@ -29,10 +29,20 @@ const Country = () => {
             Capital : <b>{country.capital[0]}</b>
             <br />
             Continent : <b>{country.continents[0]}</b>
+            <br />
+            Map :{" "}
+            <a href={country.maps.googleMaps} target="_blank">
+              Open (new tab)
+            </a>
           </p>
         </>
       )}
-      {!showCountry && <p>... Loading</p>}
+      {!showCountry && (
+        <div className="lds-ripple">
+          <div></div>
+          <div></div>
+        </div>
+      )}
     </>
   );
 };
